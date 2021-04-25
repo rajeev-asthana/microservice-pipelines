@@ -15,32 +15,26 @@ def call(){
 
 def packageArtifact(){
     
-     stage('Maven Environment Setup'){
+     stage("Package artifact"){
            sh '''
               export MAVEN_HOME=/var/jenkins_home/apache-maven/apache-maven-3.8.1
               export PATH=$PATH:$MAVEN_HOME/bin
               mvn --version
-              mvn clean package
+              #mvn clean package
+              mvn package
               '''
         }
-    
-    stage("Package artifact") {
-        sh "mvn package"
-    }
 }
 
 def buildAndTest(){
     
-    stage('Maven Environment Setup'){
+    stage("Backend tests"){
            sh '''
               export MAVEN_HOME=/var/jenkins_home/apache-maven/apache-maven-3.8.1
               export PATH=$PATH:$MAVEN_HOME/bin
               mvn --version
-              mvn clean package
+              #mvn clean test package
+              mvn test
               '''
         }
-    
-    stage("Backend tests"){
-        sh "mvn test"
-    }
 }
