@@ -3,6 +3,15 @@ def call(){
         stage('Checkout') {
             checkout scm
         }
+        
+        stage('Maven Environment Setup'){
+           sh '''
+              export MAVEN_HOME=/opt/maven
+              export PATH=$PATH:$MAVEN_HOME/bin
+              mvn --version
+              mvn clean package
+              '''
+        }
 
         // Execute different stages depending on the job
         if(env.JOB_NAME.contains("deploy")){
